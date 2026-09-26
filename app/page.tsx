@@ -2,6 +2,7 @@ import Hero from '@/components/Hero';
 import LibrarySection from '@/components/LibrarySection';
 import { getAllWorkouts } from '@/lib/api';
 import { Workout } from '@/lib/types';
+export const revalidate = 300;
 
 export const dynamic = 'force-dynamic';
 

@@ -119,7 +119,7 @@ function extractList(payload: any): any[] {
 
 export async function getAllWorkouts(): Promise<Workout[]> {
   // Cache for 60s so we don't hammer the API on every request (it rate-limits).
-  const res = await fetch(BASE_URL, { next: { revalidate: 60 } });
+  const res = await fetch(BASE_URL, { next: { revalidate: 300 } });
   if (!res.ok) throw new Error(`Failed to load workouts (${res.status})`);
   const json = await res.json();
   return extractList(json).map((raw, i) => normalizeWorkout(raw, i));
@@ -127,7 +127,7 @@ export async function getAllWorkouts(): Promise<Workout[]> {
 
 export async function getWorkoutById(id: string): Promise<Workout | null> {
   try {
-    const res = await fetch(`${BASE_URL}/${id}`, { next: { revalidate: 60 } });
+    const res = await fetch(`${BASE_URL}/${id}`, { next: { revalidate: 300 } });
     if (res.ok) {
       const json = await res.json();
       const raw = json?.data ?? json;
